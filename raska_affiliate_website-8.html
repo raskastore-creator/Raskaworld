@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#ff5a36">
+<meta name="description" content="RASKA — discover trending finds, smart picks, and everyday deals from around the world.">
+<title>RASKA — Discover. Shop. Save.</title>
+<style>
+  :root{--ink:#171717;--muted:#6d6d73;--paper:#fffdfb;--line:#eee7e2;--hot:#ff5a36;--yellow:#ffe66d;--lav:#e9e3ff;--mint:#d8f7e8}
+  *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+  a{color:inherit;text-decoration:none} button,input{font:inherit}
+  .wrap{width:min(1160px,92%);margin:auto}
+  .topbar{background:var(--ink);color:#fff;text-align:center;padding:9px 12px;font-size:.78rem;letter-spacing:.04em}
+  header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 0}
+  .logo{font-weight:1000;font-size:2rem;letter-spacing:-.09em}.logo span{color:var(--hot)}
+  nav{display:flex;gap:24px;font-size:.92rem;font-weight:650}nav a:hover{color:var(--hot)}
+  .head-cta{background:var(--hot);color:white;padding:11px 17px;border-radius:999px;font-weight:800;font-size:.88rem}
+  .hero{display:grid;grid-template-columns:1.1fr .9fr;gap:30px;align-items:center;padding:40px 0 56px}
+  .eyebrow{display:inline-flex;gap:8px;align-items:center;background:var(--yellow);padding:8px 12px;border-radius:99px;font-size:.76rem;font-weight:900;text-transform:uppercase;letter-spacing:.06em}
+  h1{font-size:clamp(3.1rem,7vw,6.4rem);line-height:.91;letter-spacing:-.075em;margin:20px 0}
+  h1 em{font-style:normal;color:var(--hot)}
+  .hero p{font-size:1.08rem;line-height:1.7;color:var(--muted);max-width:520px}
+  .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 20px;border-radius:14px;font-weight:850;border:1px solid var(--ink);transition:transform .18s}
+  .btn:hover{transform:translateY(-2px)}.btn.primary{background:var(--ink);color:white}.btn.secondary{background:white}
+  .hero-art{min-height:400px;border-radius:34px;background:var(--lav);position:relative;overflow:hidden;display:grid;place-items:center}
+  .sun{position:absolute;width:250px;height:250px;border-radius:50%;background:var(--yellow);right:-25px;top:-30px}
+  .blob{position:absolute;width:220px;height:290px;border-radius:48% 48% 28% 28%;background:var(--hot);transform:rotate(13deg);bottom:-70px;left:-35px}
+  .orbit{position:absolute;width:300px;height:300px;border:2px dashed rgba(23,23,23,.25);border-radius:50%}
+  .hero-card{position:relative;background:white;border:2px solid var(--ink);border-radius:26px;padding:23px;width:min(270px,75%);box-shadow:9px 10px 0 var(--ink);transform:rotate(-5deg);z-index:2}
+  .hero-card .tag{display:inline-block;background:var(--mint);border-radius:99px;padding:6px 9px;font-size:.7rem;font-weight:900}
+  .hero-card .emoji{font-size:6rem;text-align:center;line-height:1.4}.hero-card h3{margin:5px 0;font-size:1.4rem;letter-spacing:-.04em}.hero-card p{margin:0;font-size:.85rem}
+  .sticker{position:absolute;z-index:3;background:var(--yellow);border:2px solid var(--ink);border-radius:50%;width:94px;height:94px;display:grid;place-items:center;text-align:center;font-size:.85rem;font-weight:1000;transform:rotate(12deg);right:8%;bottom:13%}
+  .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin:20px 0 22px}.section-head h2{font-size:clamp(2rem,4vw,3.1rem);letter-spacing:-.065em;margin:0}.section-head p{color:var(--muted);margin:0}
+  .categories{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:54px}
+  .cat{border:1px solid var(--line);border-radius:20px;padding:20px 12px;background:white;text-align:center;font-weight:800;cursor:pointer;transition:.18s}
+  .cat span{display:block;font-size:2rem;margin-bottom:9px}.cat:hover,.cat.active{border-color:var(--ink);background:var(--yellow);transform:translateY(-2px)}
+  .toolbar{display:flex;gap:12px;align-items:center;justify-content:space-between;margin:22px 0}
+  .search{flex:1;max-width:400px;position:relative}.search input{width:100%;border:1px solid var(--line);border-radius:14px;padding:13px 15px;background:white;outline:none}.search input:focus{border-color:var(--hot)}
+  .filter-note{font-size:.85rem;color:var(--muted)}
+  .products{display:grid;grid-template-columns:repeat(4,1fr);gap:17px}
+  .product{border:1px solid var(--line);border-radius:22px;overflow:hidden;background:white;transition:transform .2s,box-shadow .2s}.product:hover{transform:translateY(-4px);box-shadow:0 12px 30px #1717170d}
+  .product-visual{height:190px;display:grid;place-items:center;font-size:5rem;position:relative}.product-visual .badge{position:absolute;top:12px;left:12px;background:white;border-radius:99px;padding:6px 9px;font-size:.68rem;font-weight:900}
+  .product-body{padding:16px}.product-type{font-size:.7rem;color:var(--muted);font-weight:850;text-transform:uppercase;letter-spacing:.08em}.product h3{font-size:1.02rem;margin:8px 0 7px;letter-spacing:-.025em}.product p{color:var(--muted);font-size:.83rem;line-height:1.5;min-height:38px;margin:0 0 15px}
+  .product-bottom{display:flex;align-items:center;justify-content:space-between;gap:8px}.price{font-weight:950;font-size:1.05rem}.shop{background:var(--ink);color:white;border:0;border-radius:10px;padding:10px 12px;font-size:.78rem;font-weight:850;cursor:pointer}
+  .shop:hover{background:var(--hot)}.disclosure{font-size:.78rem;line-height:1.6;color:var(--muted);background:#f7f3ef;padding:15px 17px;border-radius:14px;margin:22px 0 65px}
+  .banner{background:var(--hot);border-radius:28px;padding:34px;color:white;display:flex;justify-content:space-between;align-items:center;gap:24px;margin:20px 0 60px}.banner h2{font-size:clamp(1.8rem,4vw,3rem);letter-spacing:-.06em;line-height:1;margin:0 0 10px}.banner p{margin:0;opacity:.9}.banner .btn{background:white;color:var(--ink);border-color:white;white-space:nowrap}
+  footer{border-top:1px solid var(--line);padding:28px 0 36px;display:flex;justify-content:space-between;gap:20px;align-items:center;color:var(--muted);font-size:.82rem}footer strong{color:var(--ink)}
+  .empty{grid-column:1/-1;text-align:center;padding:35px;color:var(--muted)}
+  @media(max-width:850px){nav{display:none}.hero{grid-template-columns:1fr;padding-top:20px}.hero-art{min-height:340px}.products{grid-template-columns:repeat(2,1fr)}.categories{grid-template-columns:repeat(3,1fr)}.section-head{align-items:start;flex-direction:column}}
+  @media(max-width:480px){.logo{font-size:1.75rem}.head-cta{padding:10px 12px}.hero{gap:20px}.hero-art{min-height:300px}.categories{grid-template-columns:repeat(2,1fr);gap:9px}.cat{padding:15px 8px}.products{gap:10px}.product-visual{height:140px;font-size:3.8rem}.product-body{padding:12px}.product h3{font-size:.94rem}.product p{font-size:.78rem}.shop{padding:9px}.banner{align-items:flex-start;flex-direction:column;padding:26px}.toolbar{align-items:stretch;flex-direction:column}.search{max-width:none}footer{align-items:flex-start;flex-direction:column}}
+</style>
+</head>
+<body>
+<div class="topbar">🌍 GOOD FINDS, FROM ANYWHERE — WELCOME TO RASKA</div>
+<header class="wrap">
+  <a class="logo" href="#" aria-label="RASKA home">RASKA<span>.</span></a>
+  <nav aria-label="Main navigation"><a href="#categories">Categories</a><a href="#trending">Trending finds</a><a href="#about">About RASKA</a></nav>
+  <a class="head-cta" href="#trending">Explore finds ↗</a>
+</header>
+<main>
+  <section class="hero wrap">
+    <div>
+      <span class="eyebrow">✦ Your next great find starts here</span>
+      <h1>Good finds.<br><em>Good vibes.</em></h1>
+      <p>Discover cool gadgets, everyday essentials, style picks, and little things that make life better. RASKA helps you find your next favorite thing.</p>
+      <div class="hero-actions"><a class="btn primary" href="#trending">Explore trending finds ↗</a><a class="btn secondary" href="#categories">Browse categories</a></div>
+    </div>
+    <div class="hero-art" aria-label="Playful RASKA shopping illustration">
+      <div class="sun"></div><div class="blob"></div><div class="orbit"></div>
+      <div class="hero-card"><span class="tag">RASKA PICK ✦</span><div class="emoji">🎧</div><h3>Find your next fave.</h3><p>Fresh picks for curious shoppers.</p></div>
+      <div class="sticker">COOL<br>FINDS<br>ONLY ✦</div>
+    </div>
+  </section>
+
+  <section class="wrap" id="categories">
+    <div class="section-head"><div><h2>What's your vibe?</h2><p>Pick a category and start exploring.</p></div></div>
+    <div class="categories">
+      <button class="cat active" data-filter="All"><span>✨</span>All finds</button>
+      <button class="cat" data-filter="Tech"><span>🎧</span>Tech & gadgets</button>
+      <button class="cat" data-filter="Style"><span>👟</span>Style</button>
+      <button class="cat" data-filter="Beauty"><span>🧴</span>Beauty</button>
+      <button class="cat" data-filter="Home"><span>🏡</span>Home & living</button>
+    </div>
+  </section>
+
+  <section class="wrap" id="trending">
+    <div class="section-head"><div><h2>Trending finds <span style="color:var(--hot)">↗</span></h2><p>Handpicked inspiration for your next discovery.</p></div></div>
+    <div class="toolbar"><label class="search"><input id="search" type="search" placeholder="Search products..." aria-label="Search products"></label><span class="filter-note" id="count">8 finds to explore</span></div>
+    <div class="products" id="products"></div>
+    <p class="disclosure"><strong>Affiliate disclosure:</strong> RASKA may earn a commission if you buy through qualifying affiliate links, at no extra cost to you. Product examples on this starter site are illustrative. Prices, availability, and affiliate links must be checked and added before launch.</p>
+  </section>
+
+  <section class="wrap" id="about"><div class="banner"><div><h2>Find something<br>you didn't know you needed.</h2><p>Explore more. Discover better. Keep it RASKA.</p></div><a class="btn" href="#categories">Start exploring ↗</a></div></section>
+</main>
+<footer class="wrap"><a class="logo" href="#">RASKA<span>.</span></a><span>© <span id="year"></span> RASKA. Discover. Shop. Save.</span><span>Affiliate links will be added before launch.</span></footer>
+<script>
+const items = [
+ {name:"Everyday Wireless Headphones",type:"Tech",emoji:"🎧",desc:"A comfy audio pick for commutes, study, and playlists.",price:"Check price",badge:"POPULAR",bg:"#e9e3ff"},
+ {name:"Compact Smart Watch",type:"Tech",emoji:"⌚",desc:"A simple wearable-style pick for everyday routines.",price:"Check price",badge:"TRENDING",bg:"#d8f7e8"},
+ {name:"Everyday Street Sneakers",type:"Style",emoji:"👟",desc:"A versatile style idea for casual everyday outfits.",price:"Check price",badge:"STYLE PICK",bg:"#ffe6d9"},
+ {name:"Minimal Crossbody Bag",type:"Style",emoji:"👜",desc:"A practical accessory idea for days on the go.",price:"Check price",badge:"FAN FAVE",bg:"#fff0a8"},
+ {name:"Daily Skincare Set",type:"Beauty",emoji:"🧴",desc:"A skincare routine starter idea; check ingredients first.",price:"Check price",badge:"SELF-CARE",bg:"#f9dfea"},
+ {name:"Everyday Hair Tool",type:"Beauty",emoji:"💆",desc:"A beauty-tool idea to compare by features and reviews.",price:"Check price",badge:"DISCOVERY",bg:"#e8e6ff"},
+ {name:"Cozy Ambient Lamp",type:"Home",emoji:"💡",desc:"A warm-light idea to make a corner feel more inviting.",price:"Check price",badge:"COZY PICK",bg:"#ffebbd"},
+ {name:"Reusable Travel Bottle",type:"Home",emoji:"🥤",desc:"A handy everyday carry idea for work, school, or travel.",price:"Check price",badge:"EVERYDAY",bg:"#d9f4ef"}
+];
+let active = "All";
+const grid = document.getElementById("products");
+const search = document.getElementById("search");
+function render(){
+ const q=search.value.trim().toLowerCase();
+ const shown=items.filter(x=>(active==="All"||x.type===active)&&(`${x.name} ${x.type} ${x.desc}`).toLowerCase().includes(q));
+ document.getElementById("count").textContent=`${shown.length} ${shown.length===1?"find":"finds"} to explore`;
+ grid.innerHTML=shown.length?shown.map(x=>`<article class="product"><div class="product-visual" style="background:${x.bg}"><span class="badge">${x.badge}</span>${x.emoji}</div><div class="product-body"><span class="product-type">${x.type}</span><h3>${x.name}</h3><p>${x.desc}</p><div class="product-bottom"><span class="price">${x.price}</span><button class="shop" type="button" onclick="alert('This is a starter demo. Add a real, approved affiliate URL for this product before publishing.')">View find ↗</button></div></div></article>`).join(""):`<p class="empty">No finds matched that search. Try another word or category.</p>`;
+}
+document.querySelectorAll(".cat").forEach(btn=>btn.addEventListener("click",()=>{document.querySelectorAll(".cat").forEach(b=>b.classList.remove("active"));btn.classList.add("active");active=btn.dataset.filter;render()}));
+search.addEventListener("input",render);
+document.getElementById("year").textContent=new Date().getFullYear();
+render();
+</script>
+</body>
+</html>
